@@ -5,13 +5,13 @@ const stdio = readline.createInterface({
     output: process.stdout
 });
 
-const promptRegion = () => {
+function promptRegion() {
     return new Promise((resolve) => {
         stdio.question('Which region would you like the LNM for? ', (answer) => {
             resolve(answer)
         })
     })
-};
+}
 
 /**
  * Prompts the user for a region, if the input is clearly invalid,

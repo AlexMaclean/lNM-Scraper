@@ -8,7 +8,7 @@ const RECENT_COUNT = 2;
 const CLEAN = false;    // for testing, if true files always re-downloaded
 
 function getRegionUrl(region) {
-    const url = `${BASE_URL}/?pageName=lnmDistrict&region=${region}`
+    return `${BASE_URL}/?pageName=lnmDistrict&region=${region}`
     // TODO: District 8 is weird, it has an rivers and an coastal part
     //       I haven't figured out an elegant way to deal with this yet
 }
@@ -31,7 +31,7 @@ function getFilename(pdf) {
  */
 function scrapeForPdfs(url) {
     return new Promise(function (resolve) {
-        console.log(`Scarping '${url}' for LNM PDFs`);
+        console.log(`Scraping '${url}' for LNM PDFs`);
         request(url, (error, response, body) => {
             if (error) {
                 console.log(`...Error encountered: ${error.toString()}`);
