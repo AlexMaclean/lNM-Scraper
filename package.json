@@ -1,0 +1,17 @@
+{
+  "name": "lnmscraper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "main": "node index.js"
+  },
+  "keywords": [],
+  "author": "Alex MacLean",
+  "license": "ISC",
+  "description": "Scrapes the U.S. Coast Guard website for the most recent LNMs in a region",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "readline": "^1.3.0",
+    "request": "^2.88.0"
+  }
+}
