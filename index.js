@@ -5,18 +5,20 @@ const prompt = require('./prompt');
 
 const BASE_URL = 'https://www.navcen.uscg.gov';
 const RECENT_COUNT = 2;
-const CLEAN = false;
+const CLEAN = false;    // for testing, if true files always re-downloaded
 
 function getRegionUrl(region) {
-    return `${BASE_URL}/?pageName=lnmDistrict&region=${region}`
+    const url = `${BASE_URL}/?pageName=lnmDistrict&region=${region}`
+    // TODO: District 8 is weird, it has an rivers and an coastal part
+    //       I haven't figured out an elegant way to deal with this yet
 }
 
 function getPdfUrl(pdf) {
-    return BASE_URL + pdf.substr(1)
+    return BASE_URL + pdf.substr(1)  // remove the leading '.'
 }
 
 function getFilename(pdf) {
-    return pdf.substr(pdf.lastIndexOf('/') + 1)
+    return pdf.substr(pdf.lastIndexOf('/') + 1)  // trim link to last filename
 }
 
 /**
@@ -83,7 +85,7 @@ async function alreadyDownloaded() {
     await new Promise(resolve => {
         fs.readdir('.', function (err, items) {
             items.forEach((item) => {
-                if (item.endsWith('.pdf')) {
+                if (item.endsWith('.pdf')) {    // I don't really have to do this, but it's cleaner
                     downloaded.push(item)
                 }
             });
