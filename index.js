@@ -49,6 +49,21 @@ function filterRecent(paths, count) {
     return paths.sort().reverse().slice(0, count);
 }
 
+async function checkDownloaded() {
+    let downloaded = [];
+    await new Promise(resolve => {
+        fs.readdir('.', function (err, items) {
+            items.forEach((item) => {
+                if (item.endsWith('.pdf')) {
+                    downloaded.push(item)
+                }
+            });
+            resolve();
+        })
+    });
+    return downloaded;
+}
+
 /**
  * Method to download a pdf from the net using the request library, given a
  * url and a filename to download to. Logs relevant information to the console
@@ -91,8 +106,12 @@ async function main() {
     const region = await prompt();
     const allPaths = await scrapeForPdfs(getRegionUrl(region));
     const recent = filterRecent(allPaths, RECENT_COUNT);
+    const downloaded = await checkDownloaded();
     recent.forEach((pdf) => {
-        downloadPdf(getPdfUrl(pdf), getFilename(pdf))
+        const filename = getFilename(pdf);
+        if (!downloaded.includes(filename)) {
+            downloadPdf(getPdfUrl(pdf), filename)
+        }
     })
 }
 
